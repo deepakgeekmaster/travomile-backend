@@ -118,7 +118,39 @@ const SmsOtp = async (req, res) => {
 
 
 const VerifyOtp = async  (req,res) => {
-       res.status(200).json({ message: 'working here' });
+         try {
+       const { identifier, otp } = req.body;
+
+        if (!identifier) {
+            return res.status(400).json({ message: 'Email or phone number is required' });
+        }
+            if (!otp) {
+                return res.status(400).json({ message: 'OTP is required' });
+            }
+
+         const storeKey = identifier;
+        const storedOtp = otpStore[storeKey];
+
+        if (!storedOtp) {
+            return res.status(400).json({ message: 'OTP not found' });
+        }
+
+        if (Date.now() > storedOtp.expiresAt) {
+            delete otpStore[storeKey];
+            return res.status(400).json({ message: 'OTP expired' });
+        }
+
+        if (storedOtp.otp == otp) {
+            delete otpStore[storeKey];
+            res.json({ message: 'OTP verified successfully!' });
+        } else {
+            res.status(400).json({ message: 'Invalid OTP' });
+        }
+
+        
+    } catch (error) {
+        console.error('Server error:', error);
+    }
 };
 
 
