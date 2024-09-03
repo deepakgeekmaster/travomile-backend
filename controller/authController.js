@@ -112,7 +112,7 @@ const EmailOtp = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        await SendMail(email,res);
+       await SendMail(email, res, req); 
     } catch (error) {
         console.error('Server error:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
