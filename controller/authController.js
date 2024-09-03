@@ -25,8 +25,22 @@ const signup = async (req, res) => {
             }
         }
   
-        const newUser = new User({ username: username, password, email, phone, RefferBy: checkReffer ? checkReffer.UserId : null, devices: [{ devicename: deviceInfo.device,Os:deviceInfo.os,browser:deviceInfo.browser, lastLogin: new Date() }], });
+      const newUser = new User({
+            username,
+            password,
+            email,
+            phone,
+            RefferBy: checkReffer ? checkReffer.UserId : null,
+            devices: [{ 
+                devicename: deviceInfo.device,
+                Os: deviceInfo.os,
+                browser: deviceInfo.browser,
+                lastLogin: new Date()
+            }]
+        });
+        
         await newUser.save();
+        
         const referralCode = generateReferralCode();
 
         const newreffer = new refferDetails({ Code: referralCode, UserId:newUser._id});
