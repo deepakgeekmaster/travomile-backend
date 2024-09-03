@@ -43,7 +43,7 @@ app.use(session({
         mongoUrl: process.env.MONGO_URI, 
         collectionName: 'sessions' 
     }),
-    cookie: { secure: false }
+    cookie: { secure: true }
 }));
     const store = new MongoStore({
         mongoUrl: process.env.MONGO_URI,
