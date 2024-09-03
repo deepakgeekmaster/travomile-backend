@@ -1,5 +1,5 @@
 const express = require('express');
-const { signup, login,EmailOtp,SmsOtp,VerifyOtp  } = require('../../controller/authController');
+const { signup, login,EmailOtp,SmsOtp,VerifyOtp} = require('../../controller/authController');
 const auth = require('../../middleware/authMiddleware');
 const validateSignup = require('../../middleware/validateSignup');
 
