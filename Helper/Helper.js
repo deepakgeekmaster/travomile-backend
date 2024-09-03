@@ -2,6 +2,7 @@
 
 var postmark = require("postmark");
 const twilio = require('twilio');
+const Otp = require('./models/otpSchema.js');
 require('dotenv').config();
 const { parsePhoneNumberFromString } = require('libphonenumber-js');
 
@@ -11,9 +12,7 @@ const SendMail = async (email,res,req) => {
     try {
         const otpStore = {};
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        const expiresAt = Date.now() + 5 * 60 * 1000;
-        req.session.otp = { email, otp, expiresAt };
-        console.log('Session before sending email:', req.session);
+        await Otp.create({ email, otp });
         await client.sendEmail({
             "From": "athar@geekmaster.io",
             "To": email,
