@@ -35,31 +35,17 @@ app.use(cors({
 
 app.use(express.json());
 
-
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET, // Use an environment variable for the session secret
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({
-        mongoUrl: process.env.MONGO_URI, 
-        collectionName: 'sessions' 
-    }),
     cookie: {
-        secure: true,
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000 // 1 day
-      }
+          secure: true,
+        httpOnly: true, 
+        maxAge: 24 * 60 * 60 * 1000 
+    }
 }));
-  const store = new MongoStore({
-    mongoUrl: process.env.MONGO_URI,
-    collectionName: 'sessions'
-});
-
-store.on('error', (error) => {
-    console.error('Session store error:', error);
-});
-
-
+ 
 app.use(passport.initialize());
 app.use(passport.session());
 
