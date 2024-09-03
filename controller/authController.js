@@ -118,20 +118,12 @@ const SmsOtp = async (req, res) => {
 
 
 const VerifyOtp = async  (req,res) => {
-         try {
-       const { identifier, otp } = req.body;
-
-        if (!identifier) {
-            return res.status(400).json({ message: 'Email or phone number is required' });
-        }
-            if (!otp) {
-                return res.status(400).json({ message: 'OTP is required' });
-            }
-        const storeKey = identifier;
-       
-
+try {
+        res.status(400).json({ message: 'Invalid OTP' });
+ 
         
-    } catch (error) {
+    } 
+catch (error) {
         console.error('Server error:', error);
     }
 };
