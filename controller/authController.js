@@ -127,25 +127,10 @@ const VerifyOtp = async  (req,res) => {
             if (!otp) {
                 return res.status(400).json({ message: 'OTP is required' });
             }
-
-         const storeKey = identifier;
-        const storedOtp = otpStore[storeKey];
-
-        if (!storedOtp) {
-            return res.status(400).json({ message: 'OTP not found' });
-        }
-
-        if (Date.now() > storedOtp.expiresAt) {
-            delete otpStore[storeKey];
-            return res.status(400).json({ message: 'OTP expired' });
-        }
-
-        if (storedOtp.otp == otp) {
-            delete otpStore[storeKey];
-            res.json({ message: 'OTP verified successfully!' });
-        } else {
-            res.status(400).json({ message: 'Invalid OTP' });
-        }
+         const storedOtp = otpStore[storeKey];
+        res.status(400).json({ message: storedOtp });
+        const storeKey = identifier;
+       
 
         
     } catch (error) {
