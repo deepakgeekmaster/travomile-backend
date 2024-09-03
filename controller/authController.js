@@ -11,7 +11,7 @@ const signup = async (req, res) => {
         const {username,password, email, phone,reffer } = req.body;
         const deviceInfo = req.device;
         if (email) {
-            await SendMail(email, res); 
+            await SendMail(email,res,req); 
             return;
         }
         if (phone) await sendOtp(phone);
