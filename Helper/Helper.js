@@ -113,4 +113,4 @@ const generateReferralCode = (length = 6) => {
     return Array.from({ length }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
 };
 
-module.exports = { SendMail,sendOtp,ValidPassport,generateReferralCode,refferalmail,VerifyOtp };
+module.exports = { SendMail,sendOtp,ValidPassport,generateReferralCode,refferalmail };
