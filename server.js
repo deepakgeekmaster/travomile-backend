@@ -46,14 +46,15 @@ app.use(session({
     }),
     cookie: { secure: true }
 }));
-    const store = new MongoStore({
-        mongoUrl: process.env.MONGO_URI,
-        collectionName: 'sessions'
-    });
-    console.log(store);
-    store.on('error', (error) => {
-        console.error('Session store error:', error);
-    });
+  const store = new MongoStore({
+    mongoUrl: process.env.MONGO_URI,
+    collectionName: 'sessions'
+});
+
+store.on('error', (error) => {
+    console.error('Session store error:', error);
+});
+
 
 app.use(passport.initialize());
 app.use(passport.session());
