@@ -113,6 +113,8 @@ const EmailOtp = async (req, res) => {
         }
 
        await SendMail(email, res, req); 
+      res.status(201).json({ message: 'Email Sent succesfully' });
+
     } catch (error) {
         console.error('Server error:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
