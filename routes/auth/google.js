@@ -4,7 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const APP_ID = 7665918636858856;
 const APP_SECRET = "7362ed470ab871ad0928da6e1e74954c";
-const REDIRECT_URI = 'https://travomile-backend.vercel.app/';
+const REDIRECT_URI = 'https://travomile-backend.vercel.app/auth/facebook/callback';
 const axios = require('axios');
 const User = require('../../models/Users');
 
