@@ -10,24 +10,26 @@ require('dotenv').config();
 
 const signup = async (req, res) => {
     try {
-        const {password, email} = req.body;
+        const { password, email, reffer } = req.body; // Extract 'reffer' from req.body
         const deviceInfo = req.device;
+
+        // Send email if the email is provided
         if (email) {
-            await SendMail(email,res,req); 
+            await SendMail(email, res, req); 
         }
-        if (phone) await sendOtp(phone);
+
         let checkReffer = null; 
         if (reffer) {
             checkReffer = await refferDetails.findOne({ Code: reffer });
             if (!checkReffer) {
-                return;
-              
+                return res.status(400).json({ message: 'Invalid referral code' }); // Handle invalid referral code
             }
         }
-  
-      const newUser = new User({
-            password:password,
-            email:email,
+
+        // Create a new user
+        const newUser = new User({
+            password: password,
+            email: email,
             RefferBy: checkReffer ? checkReffer.UserId : null,
             devices: [{ 
                 devicename: deviceInfo.device,
@@ -36,18 +38,24 @@ const signup = async (req, res) => {
                 lastLogin: new Date()
             }]
         });
-        
-        await newUser.save();
-        
-        const referralCode = generateReferralCode();
 
-        const newreffer = new refferDetails({ Code: referralCode, UserId:newUser._id});
-        await newreffer.save();
+        // Save the new user to the database
+        await newUser.save();
+
+        // Generate a new referral code
+        const referralCode = generateReferralCode();
+        const newReffer = new refferDetails({ Code: referralCode, UserId: newUser._id });
+        await newReffer.save();
+
+        // Generate a JWT token
         const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // Send a successful response with the token
+        res.status(201).json({ message: 'User created successfully', token });
 
     } catch (error) {
         console.log('Error creating user:', error);
-        res.status(400).json({ message: 'Error creating user', error });
+        res.status(500).json({ message: 'Error creating user', error }); // Use 500 for server errors
     }
 };
 
