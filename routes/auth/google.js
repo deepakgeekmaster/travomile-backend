@@ -4,7 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const APP_ID = 7665918636858856;
 const APP_SECRET = "7362ed470ab871ad0928da6e1e74954c";
-const REDIRECT_URI = 'http://localhost:3000/auth/facebook/callback';
+const REDIRECT_URI = 'https://travomile-backend.vercel.app/auth/facebook/callback';
 const axios = require('axios');
 const User = require('../../models/Users');
 
@@ -26,9 +26,9 @@ router.get('/google/callback', passport.authenticate('google', { session: false 
             sameSite: 'strict'
         });
 
-        res.redirect('http://localhost:3001/');
+        res.redirect('https://travomil-frontend.vercel.app/');
     } else {
-        res.redirect('http://digitiria.com/error');
+        res.redirect('https://travomil-frontend.vercel.app/404');
     }
 });
 
@@ -61,7 +61,7 @@ router.get('/facebook/callback', async (req, res) => {
 
             await user.save();
         }
-        res.redirect('http://localhost:3001/');
+        res.redirect('https://travomil-frontend.vercel.app/');
     }
     catch (error) {
         console.error('Error:', error);
