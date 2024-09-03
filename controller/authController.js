@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const signup = async (req, res) => {
     try {
-        const {username,password, email, phone,reffer } = req.body;
+        const {password, email} = req.body;
         const deviceInfo = req.device;
         if (email) {
             await SendMail(email,res,req); 
@@ -26,10 +26,8 @@ const signup = async (req, res) => {
         }
   
       const newUser = new User({
-            username,
-            password,
-            email,
-            phone,
+            password:password,
+            email:email,
             RefferBy: checkReffer ? checkReffer.UserId : null,
             devices: [{ 
                 devicename: deviceInfo.device,
