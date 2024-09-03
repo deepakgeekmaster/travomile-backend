@@ -12,7 +12,8 @@ const SendMail = async (email,res,req) => {
         const otpStore = {};
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         const expiresAt = Date.now() + 5 * 60 * 1000;
-         req.session.otp = { email, otp, expiresAt };
+        req.session.otp = { email, otp, expiresAt };
+        console.log('Session before sending email:', req.session);
         await client.sendEmail({
             "From": "athar@geekmaster.io",
             "To": email,
