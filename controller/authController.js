@@ -127,8 +127,6 @@ const VerifyOtp = async  (req,res) => {
             if (!otp) {
                 return res.status(400).json({ message: 'OTP is required' });
             }
-         const storedOtp = otpStore[storeKey];
-        res.status(400).json({ message: storedOtp });
         const storeKey = identifier;
        
 
