@@ -44,7 +44,11 @@ app.use(session({
         mongoUrl: process.env.MONGO_URI, 
         collectionName: 'sessions' 
     }),
-    cookie: { secure: true, httpOnly: false, maxAge: 24 * 60 * 60 * 1000 }
+    cookie: {
+        secure: true,
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
+      }
 }));
   const store = new MongoStore({
     mongoUrl: process.env.MONGO_URI,
