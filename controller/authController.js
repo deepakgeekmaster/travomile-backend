@@ -117,7 +117,7 @@ const SmsOtp = async (req, res) => {
 };
 
 
-const VerifyOtp = async  (str,res) => {
+const VerifyOtp = async  (req,res) => {
     try {
        const { email, phone, otp } = req.body;
 
