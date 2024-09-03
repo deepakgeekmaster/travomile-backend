@@ -80,7 +80,7 @@ app.use('/Api',normalRoutes);
 app.use('/Admin', adminRoutes);
 
 app.get('/api/getCookie', (req, res) => {
-    const otp = req.cookies.otp || null; 
+    const otp = req.cookies.otp;
     res.json({ otp });
 });
 
