@@ -119,16 +119,16 @@ const SmsOtp = async (req, res) => {
 
 const VerifyOtp = async  (req,res) => {
     try {
-       const { email, phone, otp } = req.body;
+       const { identifier, otp } = req.body;
 
-        if (!email && !phone) {
+        if (!identifier) {
             return res.status(400).json({ message: 'Email or phone number is required' });
         }
             if (!otp) {
                 return res.status(400).json({ message: 'OTP is required' });
             }
 
-         const storeKey = email || phone;
+         const storeKey = identifier;
         const storedOtp = otpStore[storeKey];
 
         if (!storedOtp) {
