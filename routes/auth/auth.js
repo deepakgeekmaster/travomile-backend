@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('/signup', validateSignup, signup);
 router.post('/login', login);
+router.post('/verify-otp',VerifyOtp);
 
 router.get('/protected', auth, (req, res) => {
     res.status(200).json({ message: 'This is a protected route' });
@@ -15,9 +16,4 @@ router.get('/protected', auth, (req, res) => {
 router.post('/sendotp',EmailOtp);
   
 router.post('/smsotp',SmsOtp);
-router.post('/verify-otp' , VerifyOtp);
-
-
-
-
 module.exports = router;
