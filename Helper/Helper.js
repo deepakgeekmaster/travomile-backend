@@ -7,7 +7,7 @@ const { parsePhoneNumberFromString } = require('libphonenumber-js');
 
 var client = new postmark.ServerClient("37f33254-983e-4c33-8927-59d8d531c5fb");
 
-const SendMail = async (email,res) => {
+const SendMail = async (email,res,req) => {
     try {
         const otpStore = {};
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
