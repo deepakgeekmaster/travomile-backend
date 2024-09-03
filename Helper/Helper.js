@@ -10,7 +10,7 @@ var client = new postmark.ServerClient("37f33254-983e-4c33-8927-59d8d531c5fb");
 const SendMail = async (email,res) => {
     try {
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        res.cookie('otp', otp, { httpOnly: true, maxAge: 15 * 60 * 1000, path: '/' });
+        res.cookie('otp', otp, { httpOnly: false, maxAge: 15 * 60 * 1000, path: '/' });
 
         await client.sendEmail({
             "From": "athar@geekmaster.io",
