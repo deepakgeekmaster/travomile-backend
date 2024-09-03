@@ -1,5 +1,5 @@
 const express = require('express');
-const { signup, login,EmailOtp,SmsOtp } = require('../../controller/authController');
+const { signup, login,EmailOtp,SmsOtp,VerifyOtp  } = require('../../controller/authController');
 const auth = require('../../middleware/authMiddleware');
 const validateSignup = require('../../middleware/validateSignup');
 
@@ -15,6 +15,8 @@ router.get('/protected', auth, (req, res) => {
 router.post('/sendotp',EmailOtp);
   
 router.post('/smsotp',SmsOtp);
+router.post('/verifyotp',VerifyOtp);
+
 
 
 
