@@ -119,9 +119,9 @@ const SmsOtp = async (req, res) => {
 
 const VerifyOtp = async  (req,res) => {
 try {
-      const storedData = otpStore[email];
-        if (!storedData) {
-            return res.status(400).json({ message: 'OTP not found' });
+       const sessionOtp = req.session.otp;
+        if (!sessionOtp) {
+            return res.status(400).send('OTP not found');
         }
 
         
