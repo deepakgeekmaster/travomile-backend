@@ -149,7 +149,7 @@ try {
          {
             res.status(200).send('OTP verified successfully');
          }
-        res.status(200).send('OTP is inccorect');
+        res.status(201).send('OTP is inccorect');
     } else {
             res.status(400).send('Invalid OTP');
      }
