@@ -119,12 +119,7 @@ const SmsOtp = async (req, res) => {
 
 const VerifyOtp = async  (req,res) => {
 try {
-       const sessionOtp = req.session.session;
-        if (!sessionOtp) {
-            return res.status(400).send('OTP not found');
-        }
-
-        
+    return res.status(400).send(req.session);    
     } 
 catch (error) {
         console.error('Server error:', error);
