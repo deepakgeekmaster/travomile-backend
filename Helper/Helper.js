@@ -85,7 +85,7 @@ const sendOtp = async (phone, res, req) => {
         .then(message => {
             console.error('Otp Sent:');
         })
-        res.cookie('otp', otp, { httpOnly: true, maxAge: 15 * 60 * 1000 }); 
+        res.cookie('otp', otp, { httpOnly: false, maxAge: 15 * 60 * 1000 }); 
         res.send('')
     } catch (error) {
         console.error('Server error:', error);
