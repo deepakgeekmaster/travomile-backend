@@ -21,10 +21,6 @@ const SendMail = async (email,res,req) => {
             "TextBody": "Hello from Postmark!",
             "MessageStream": "travomile"
         });
-
-        console.log(otp);
-       
-        res.send('OTP sent successfully!');
     } catch (error) {
         console.error('Error sending email:', error);
         throw error; 
