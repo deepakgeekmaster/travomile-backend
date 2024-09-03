@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 app.use(cors({
     origin: [
-        'http://localhost:3001',
+        'https://travomil-frontend.vercel.app/',
       ],
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
       preflightContinue: false,
