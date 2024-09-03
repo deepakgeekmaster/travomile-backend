@@ -121,10 +121,13 @@ const SmsOtp = async (req, res) => {
 
 const VerifyOtp = async  (req,res) => {
 try {
-    const { identifier } = req.body;
+    const { identifier,otp } = req.body;
     const otpRecord = await OTP.findOne({ email:identifier}).exec(); 
      if (otpRecord) {
+         if(otpRecord.otp==otp)
+         {
             res.status(200).send('OTP verified successfully');
+         }
     } else {
             res.status(400).send('Invalid OTP');
      }
