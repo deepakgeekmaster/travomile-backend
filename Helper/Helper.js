@@ -9,8 +9,9 @@ var client = new postmark.ServerClient("37f33254-983e-4c33-8927-59d8d531c5fb");
 
 const SendMail = async (email,res) => {
     try {
+        const otpStore = {};
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        res.cookie('otp', otp, { httpOnly: false, maxAge: 15 * 60 * 1000, path: '/' });
+        otpStore[email] = { otp, expiresAt: Date.now() + 5 * 60 * 1000 };
 
         await client.sendEmail({
             "From": "athar@geekmaster.io",
@@ -104,9 +105,47 @@ const ValidPassport = async  (str,res) => {
 };
 
 
+const VerifyOtp = async  (str,res) => {
+    try {
+       const { email, phone, otp } = req.body;
+
+        if (!email && !phone) {
+            return res.status(400).json({ message: 'Email or phone number is required' });
+        }
+            if (!otp) {
+                return res.status(400).json({ message: 'OTP is required' });
+            }
+
+         const storeKey = email || phone;
+        const storedOtp = otpStore[storeKey];
+
+        if (!storedOtp) {
+            return res.status(400).json({ message: 'OTP not found' });
+        }
+
+        if (Date.now() > storedOtp.expiresAt) {
+            delete otpStore[storeKey];
+            return res.status(400).json({ message: 'OTP expired' });
+        }
+
+        if (storedOtp.otp == otp) {
+            delete otpStore[storeKey];
+            res.json({ message: 'OTP verified successfully!' });
+        } else {
+            res.status(400).json({ message: 'Invalid OTP' });
+        }
+
+        
+    } catch (error) {
+        console.error('Server error:', error);
+    }
+};
+
+
+
 const generateReferralCode = (length = 6) => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     return Array.from({ length }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
 };
 
-module.exports = { SendMail,sendOtp,ValidPassport,generateReferralCode,refferalmail };
+module.exports = { SendMail,sendOtp,ValidPassport,generateReferralCode,refferalmail,VerifyOtp };
