@@ -1,6 +1,8 @@
 const User = require('../models/Users');
 const jwt = require('jsonwebtoken');
 const refferDetails = require('../models/RefferDetail');
+const OTP = require('../models/otpSchema');
+
 const { SendMail,sendOtp,generateReferralCode,refferalmail } = require('../Helper/Helper'); 
 
 require('dotenv').config();
@@ -119,8 +121,14 @@ const SmsOtp = async (req, res) => {
 
 const VerifyOtp = async  (req,res) => {
 try {
-    return res.status(400).send(req.session);    
-    } 
+    const { identifier } = req.body;
+    const otpRecord = await OTP.findOne({ email:identifier}).exec(); 
+     if (otpRecord) {
+            res.status(200).send('OTP verified successfully');
+    } else {
+            res.status(400).send('Invalid OTP');
+     }
+  } 
 catch (error) {
         console.error('Server error:', error);
     }
