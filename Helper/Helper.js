@@ -2,7 +2,7 @@
 
 var postmark = require("postmark");
 const twilio = require('twilio');
-const Otp = require('./models/otpSchema.js');
+const Otp = require('./models/otpSchema');
 require('dotenv').config();
 const { parsePhoneNumberFromString } = require('libphonenumber-js');
 
