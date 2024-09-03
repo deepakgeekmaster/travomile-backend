@@ -15,7 +15,7 @@ router.get('/protected', auth, (req, res) => {
 router.post('/sendotp',EmailOtp);
   
 router.post('/smsotp',SmsOtp);
-router.post('/verifyotp',VerifyOtp);
+router.post('/verify-otp' , VerifyOtp);
 
 
 
